@@ -1,0 +1,112 @@
+body {
+    font-family: Arial, sans-serif; /* Modern, readable font */
+    line-height: 1.6; /* Improved readability */
+    margin: 20px; /* Space around content */
+    padding: 0;
+    color: #333; /* Dark gray text for readability */
+    background-color: #fff; /* White background for contrast */
+}
+
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+    color: #333; /* Dark color for headers */
+    font-weight: bold;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+h1 {
+    font-size: 24px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+}
+
+h2 {
+    font-size: 20px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+h4 {
+    font-size: 16px;
+}
+
+h5 {
+    font-size: 14px;
+}
+
+h6 {
+    font-size: 12px;
+}
+
+/* Paragraphs */
+p {
+    margin: 0 0 1em 0;
+    text-align: justify; /* Justified text for cleaner alignment */
+}
+
+/* Blockquotes */
+blockquote {
+    font-style: italic; /* Italicize blockquote text */
+    border-left: 3px solid #ddd; /* Light border for visual separation */
+    padding-left: 15px; /* Space between border and text */
+    margin: 0 0 1em 0;
+    color: #666; /* Slightly lighter text color */
+}
+
+/* Code */
+code {
+    font-family: 'Courier New', monospace; /* Monospaced font for code */
+    background-color: #f4f4f4; /* Light gray background for code */
+    padding: 2px 4px;
+    border-radius: 3px; /* Rounded corners */
+}
+
+/* Preformatted Code Blocks */
+pre {
+    background-color: #f4f4f4; /* Light gray background */
+    padding: 10px; /* Padding inside code block */
+    border-radius: 5px; /* Rounded corners */
+    overflow-x: auto; /* Horizontal scroll if needed */
+    white-space: pre-wrap; /* Preserve whitespace */
+    font-family: 'Courier New', monospace; /* Monospaced font */
+}
+
+/* Lists */
+ul, ol {
+    margin: 0 0 1em 0; /* Space below lists */
+    padding-left: 20px; /* Indentation for list items */
+}
+
+li {
+    margin-bottom: 0.5em; /* Space between list items */
+}
+
+/* Tables */
+table {
+    width: 100%; /* Full width tables */
+    border-collapse: collapse; /* Remove spacing between borders */
+    margin: 0 0 1em 0; /* Space below tables */
+}
+
+th, td {
+    border: 1px solid #ddd; /* Light gray borders */
+    padding: 8px; /* Padding inside cells */
+    text-align: left; /* Align text to the left */
+}
+
+th {
+    background-color: #f4f4f4; /* Light gray background for header cells */
+}
+
+/* Images */
+img {
+    max-width: 100%; /* Responsive images */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Remove any extra space below image */
+    margin: 0 auto; /* Center images horizontally */
+}

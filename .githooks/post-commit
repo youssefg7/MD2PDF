@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Get the list of changed Python files in the last commit
+CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r HEAD | grep '\.py$')
+
+if [[ -z "$CHANGED_FILES" ]]; then
+  echo "No Python files changed, skipping black and isort."
+  exit 0
+fi
+
+echo "Running black and isort on the changed files..."
+
+echo "$CHANGED_FILES" | xargs black
+
+echo "$CHANGED_FILES" | xargs isort --profile=black
+
+echo "$CHANGED_FILES" | xargs git add
+
+git commit -m "Automated Post-Commit Formatting Commit" || echo "No formatting changes to commit."
