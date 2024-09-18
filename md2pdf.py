@@ -1,5 +1,5 @@
-import markdown2
 import pdfkit
+import markdown2
 from utils import read_md, read_css, write_html
 import os
 from config import html_template, options, OUTPUT_DIR, OUTPUT_DEBUG

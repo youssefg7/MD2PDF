@@ -1,2 +1,4 @@
 pdfkit==1.0.0
 markdown2==2.5.0
+black
+isort
