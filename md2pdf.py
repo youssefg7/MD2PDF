@@ -9,6 +9,7 @@ from utils import auto_direction_html, read_css, read_md, write_html
 
 app_settings = get_settings()
 
+
 def process_html(html: str) -> str:
     html = auto_direction_html(html)
     return html
@@ -29,14 +30,17 @@ if __name__ == "__main__":
     html = markdown2.Markdown(extras=["tables", "fenced-code-blocks"]).convert(md)
     html = process_html(html)
 
-
     css_styles = read_css("styles.css")
-    formatted_template = app_settings.HTML_TEMPLATE.format(html_content=html, css_styles=css_styles)
-    
+    formatted_template = app_settings.HTML_TEMPLATE.format(
+        html_content=html, css_styles=css_styles
+    )
+
     if app_settings.OUTPUT_DEBUG:
         output_html_file = (input_md_path.split("/")[-1]).replace(".md", ".html")
         output_html_path = os.path.join(app_settings.OUTPUT_DIR, output_html_file)
         write_html(formatted_template, output_html_path)
 
-    pdfkit.from_string(formatted_template, output_pdf_path, options=app_settings.OPTIONS)
+    pdfkit.from_string(
+        formatted_template, output_pdf_path, options=app_settings.OPTIONS
+    )
     print(f"PDF generated at {output_pdf_path}")
