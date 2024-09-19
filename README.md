@@ -7,6 +7,8 @@ This is an experimental project to streamline document generation, converting fr
 pip install -r requirements.txt
 ```
 
+## Markdown MD to PDF tool
+
 - Install `wkhtmltopdf` on your computer from [here](https://wkhtmltopdf.org/downloads.html).
 
 - Run `md2pdf.py` providing input MD file path.
@@ -15,6 +17,7 @@ pip install -r requirements.txt
 python md2pdf.py "input-samples/tut-README.md"
 ```
 
+## AI Generated plots from structured data (CSV, XLSX)
 - Run `xlsx2png.py` providing input xlsx or csv file path, and input prompt.
 
 ```shell
