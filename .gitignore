@@ -3,3 +3,6 @@
 output-samples/
 input-samples/
 output/
+.env
+.DS_Store
+__pycache__/
