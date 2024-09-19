@@ -1,5 +1,7 @@
 import re
+
 import pandas as pd
+
 
 def read_md(file_path: str) -> str:
     if not file_path.endswith(".md"):
@@ -34,12 +36,12 @@ def auto_direction_html(html: str) -> str:
 
     return re.sub(r'(<\w+)([^>]*)(?<!dir="auto")(>)', r'\1\2 dir="auto"\3', html)
 
+
 def read_structured_data(file_path: str) -> pd.DataFrame:
     if not file_path.endswith(".xlsx" or ".csv"):
         raise ValueError("File is not a structured data file (xlsx or csv)")
-    
+
     if file_path.endswith(".xlsx"):
         return pd.read_excel(file_path)
-    
-    return pd.read_csv(file_path)
 
+    return pd.read_csv(file_path)

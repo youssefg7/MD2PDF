@@ -1,6 +1,14 @@
 class PlotPrompt:
 
-    def __init__(self, prompt: str, df, input_file_path: str, output_plot_path: str, previous_code: str = None, previous_error: str = None):
+    def __init__(
+        self,
+        prompt: str,
+        df,
+        input_file_path: str,
+        output_plot_path: str,
+        previous_code: str = None,
+        previous_error: str = None,
+    ):
         self.prompt = prompt
         self.df = df
         self.previous_code = previous_code
