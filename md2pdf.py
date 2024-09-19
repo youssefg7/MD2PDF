@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     if not os.path.exists(app_settings.OUTPUT_DIR):
         os.makedirs(app_settings.OUTPUT_DIR)
-    output_pdf_file = (input_md_path.split("/")[-1]).replace(".md", ".pdf")
+    output_pdf_file = (input_md_path.split("/")[-1]).split(".")[0] + ".pdf"
     output_pdf_path = os.path.join(app_settings.OUTPUT_DIR, output_pdf_file)
 
     md = read_md(input_md_path)
@@ -36,8 +36,11 @@ if __name__ == "__main__":
     )
 
     if app_settings.OUTPUT_DEBUG:
+        debug_dir = os.path.join(app_settings.OUTPUT_DIR, "debug")
+        if not os.path.exists(debug_dir):
+            os.makedirs(debug_dir)
         output_html_file = (input_md_path.split("/")[-1]).replace(".md", ".html")
-        output_html_path = os.path.join(app_settings.OUTPUT_DIR, output_html_file)
+        output_html_path = os.path.join(debug_dir, output_html_file)
         write_html(formatted_template, output_html_path)
 
     pdfkit.from_string(

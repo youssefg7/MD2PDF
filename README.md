@@ -9,10 +9,16 @@ pip install -r requirements.txt
 
 - Install `wkhtmltopdf` on your computer from [here](https://wkhtmltopdf.org/downloads.html).
 
-- Run md2pdf.py providing input MD file path.
+- Run `md2pdf.py` providing input MD file path.
 
 ```shell
 python md2pdf.py "input-samples/tut-README.md"
 ```
 
-- You can save the intermediatry `HTML` by setting `OUTPUT_DEBUG = True` in `config.py`.
+- Run `xlsx2png.py` providing input xlsx or csv file path, and input prompt.
+
+```shell
+python xlsx2png.py "input-samples/Sale Data.xlsx" "Any suitable plot of the data"
+```
+
+- You can save the intermediatry results by setting `OUTPUT_DEBUG = True` in `config.py`.
