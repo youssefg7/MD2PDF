@@ -106,6 +106,8 @@ if __name__ == "__main__":
                 file.write(code)
         try:
             pythonREPL.run(code)
+            if not os.path.exists(output_plot_image_path):
+                raise Exception("Plot image not saved in the expected location.")
             break
         except Exception as e:
             print("Error running code, retrying...")
