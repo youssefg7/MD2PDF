@@ -2,15 +2,13 @@ import argparse
 import os
 import time
 
-import markdown2
 import openai
 import pandas as pd
-import pdfkit
 from langchain_experimental.utilities import PythonREPL
 
 from config import get_settings
 from models import PlotPrompt
-from utils import auto_direction_html, read_css, read_structured_data, write_html
+from utils import auto_direction_html, read_structured_data
 
 app_settings = get_settings()
 openai_client = openai.OpenAI(
@@ -82,7 +80,6 @@ if __name__ == "__main__":
 
     last_error = None
     code = None
-
     while True:
         code = generate_plotting_code(
             dataframe=dataframe,
