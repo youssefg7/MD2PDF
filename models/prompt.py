@@ -19,9 +19,9 @@ class PlotPrompt:
     @property
     def value(self):
         v = f"""
-You are an intelligent assistant proficient in Python programming, specifically in generating and executing code to plot figures using Matplotlib.        
-Please write a python script that creates a plot in Python with matplotlib package.
-The generated script should include all necessary imports and configurations for Matplotlib.
+You are an intelligent assistant proficient in Python programming, specifically in generating and executing code to plot figures using plotly-express.        
+Please write a python script that creates a plot in Python with plotly-express package.
+The generated script should include all necessary imports and configurations for plotly-express.
 
 Sample data from {self.input_file_path}
 {self.df.head(5)}
@@ -38,7 +38,7 @@ Update the python code below to generate the plot:
 # Import required dependencies.
 # Create the Output Directory, Ensure that the plot image output directory /output/plots/ exists.
 # Read the input data from {self.input_file_path} into a pandas DataFrame.
-# Code to generate the plot.
+# Code to generate a clear and informative plot.
 # Save the plot image to {self.output_plot_path}
 ```
 
@@ -55,5 +55,6 @@ Output 100% syntatically and logically correct Python code ONLY.
             {self.previous_error}
 
             Fix it. Do not return the same code again.
+            Only return the correct code.
             """
         return v

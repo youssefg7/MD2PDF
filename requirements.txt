@@ -9,3 +9,5 @@ openai==1.46.0
 langchain-experimental==0.3.0
 openpyxl==3.1.5
 matplotlib==3.9.2
+plotly-express==0.4.1
+kaleido
