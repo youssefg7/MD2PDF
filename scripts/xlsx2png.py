@@ -1,14 +1,17 @@
 import argparse
 import os
 import time
-
+import sys
 import openai
 import pandas as pd
 from langchain_experimental.utilities import PythonREPL
 
-from config import get_settings
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+
+from helpers import get_settings
 from models import PlotPrompt
-from utils import auto_direction_html, read_structured_data
+from helpers.utils import auto_direction_html, read_structured_data
 
 app_settings = get_settings()
 openai_client = openai.OpenAI(

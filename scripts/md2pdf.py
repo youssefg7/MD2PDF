@@ -1,11 +1,14 @@
 import argparse
 import os
+import sys
 
 import markdown2
 import pdfkit
 
-from config import get_settings
-from utils import auto_direction_html, read_css, read_md, write_html
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from helpers import get_settings
+from helpers.utils import auto_direction_html, read_css, read_md, write_html
 
 app_settings = get_settings()
 
@@ -30,8 +33,14 @@ if __name__ == "__main__":
     html = markdown2.Markdown(extras=["tables", "fenced-code-blocks"]).convert(md)
     html = process_html(html)
 
-    css_styles = read_css("styles.css")
-    formatted_template = app_settings.HTML_TEMPLATE.format(
+    css_styles = read_css("assets/styles.css")
+    html_template = """
+<html>
+<head>{css_styles}</head>
+<body>{html_content}</body>
+</html>
+"""
+    formatted_template = html_template.format(
         html_content=html, css_styles=css_styles
     )
 
@@ -42,7 +51,6 @@ if __name__ == "__main__":
         output_html_file = (input_md_path.split("/")[-1]).replace(".md", ".html")
         output_html_path = os.path.join(debug_dir, output_html_file)
         write_html(formatted_template, output_html_path)
-
     pdfkit.from_string(
         formatted_template, output_pdf_path, options=app_settings.OPTIONS
     )

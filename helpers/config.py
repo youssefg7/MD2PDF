@@ -24,13 +24,6 @@ class Settings(BaseSettings):
         "no-outline": None,
     }
 
-    HTML_TEMPLATE: str = """
-    <html>
-    <head>{css_styles}</head>
-    <body>{html_content}</body>
-    </html>
-    """
-
     model_config = ConfigDict(
         env_file=".env" if os.getenv("ENVIRONMENT") != "production" else None
     )

@@ -11,3 +11,7 @@ openpyxl==3.1.5
 matplotlib==3.9.2
 plotly-express==0.4.1
 kaleido
+langgraph==0.2.23
+langchain==0.3.0
+langchain-openai==0.2.0
+
