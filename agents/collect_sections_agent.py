@@ -4,4 +4,3 @@ from models.states import OutputState, SectionsState
 def collect_sections_agent(state: SectionsState):
     print("Collecting sections")
     return OutputState(output_pdf_path="output.pdf")
-    

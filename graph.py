@@ -21,10 +21,13 @@ builder.add_node("generate_section_agent", generate_section_agent)
 builder.add_node("collect_sections_agent", collect_sections_agent)
 
 builder.add_edge(START, "brainstorming_sections_agent")
-builder.add_conditional_edges("brainstorming_sections_agent", continue_to_seciton_generation, ["generate_section_agent"])
+builder.add_conditional_edges(
+    "brainstorming_sections_agent",
+    continue_to_seciton_generation,
+    ["generate_section_agent"],
+)
 builder.add_edge("generate_section_agent", "collect_sections_agent")
 builder.add_edge("collect_sections_agent", END)
-
 
 
 graph = builder.compile()
@@ -39,7 +42,7 @@ for s in graph.stream(
         sections_titles=[],
         sections_content=[],
         sections_images=[],
-        output_pdf_path="output.pdf"
+        output_pdf_path="output.pdf",
     )
 ):
     print(s)

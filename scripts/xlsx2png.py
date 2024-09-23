@@ -7,7 +7,7 @@ import openai
 import pandas as pd
 from langchain_experimental.utilities import PythonREPL
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
 from helpers import get_settings
