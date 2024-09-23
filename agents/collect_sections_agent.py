@@ -1,4 +1,5 @@
-from models.states import SectionsState, OutputState
+from models.states import OutputState, SectionsState
+
 
 def collect_sections_agent(state: SectionsState):
     print("Collecting sections")

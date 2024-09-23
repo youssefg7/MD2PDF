@@ -1,6 +1,18 @@
 from langgraph.graph import END, START, StateGraph
-from models.states import OverallState, InputState, OutputState, SectionsState, SectionState
-from agents import brainstorming_agent, generate_section_agent, continue_to_seciton_generation, collect_sections_agent
+
+from agents import (
+    brainstorming_agent,
+    collect_sections_agent,
+    continue_to_seciton_generation,
+    generate_section_agent,
+)
+from models.states import (
+    InputState,
+    OutputState,
+    OverallState,
+    SectionsState,
+    SectionState,
+)
 
 builder = StateGraph(state_schema=OverallState, input=InputState, output=OutputState)
 

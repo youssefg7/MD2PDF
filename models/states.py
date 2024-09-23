@@ -1,7 +1,9 @@
-from pydantic import BaseModel, ConfigDict
-from typing import Annotated, Optional
-from pandas import DataFrame
 import operator
+from typing import Annotated, Optional
+
+from pandas import DataFrame
+from pydantic import BaseModel, ConfigDict
+
 
 class OverallState(BaseModel):
     input_data_file_path: str

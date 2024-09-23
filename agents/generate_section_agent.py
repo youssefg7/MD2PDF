@@ -1,5 +1,7 @@
 from langgraph.constants import Send
+
 from models.states import OverallState, SectionState
+
 
 def continue_to_seciton_generation(state: OverallState):
     print("Generating sections fork")

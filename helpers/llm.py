@@ -1,5 +1,6 @@
-from langchain_openai.chat_models import ChatOpenAI
 from functools import lru_cache
+
+from langchain_openai.chat_models import ChatOpenAI
 
 chatgpt = ChatOpenAI(
     model="gpt-4o-mini",
