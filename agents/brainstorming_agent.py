@@ -1,7 +1,7 @@
 from helpers import get_chatgpt
 from helpers.utils import read_structured_data
 from models.formatted_responses import GeneratedSections
-from models.states import InputState, OutputState, OverallState
+from models.states import OverallState
 
 
 def brainstorming_agent(state: OverallState):
