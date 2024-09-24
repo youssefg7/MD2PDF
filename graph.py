@@ -4,16 +4,12 @@ from agents import (
     brainstorming_agent,
     collect_sections_agent,
     continue_to_seciton_generation,
-    generate_text_only_section_agent,
+    continue_with_decision,
     decide_section_agent,
     generate_chart_section_agent,
-    continue_with_decision,
+    generate_text_only_section_agent,
 )
-from models.states import (
-    InputState,
-    OutputState,
-    OverallState,
-)
+from models.states import InputState, OutputState, OverallState
 
 builder = StateGraph(state_schema=OverallState, input=InputState, output=OutputState)
 
@@ -32,9 +28,8 @@ builder.add_conditional_edges(
 builder.add_conditional_edges(
     "decide_section_agent",
     continue_with_decision,
-    path_map=
-    { # map decision to agent
-        "generate_chart_section": "generate_chart_section_agent", 
+    path_map={  # map decision to agent
+        "generate_chart_section": "generate_chart_section_agent",
         "generate_text_only_section": "generate_text_only_section_agent",
     },
 )
@@ -68,9 +63,8 @@ for s in graph.stream(
         sections_titles=[],
         sections_content=[],
         sections_images=[],
-        sections_chart_types = [],
+        sections_chart_types=[],
         output_pdf_path="output.pdf",
     )
 ):
     pass
-
