@@ -1,7 +1,7 @@
 from helpers import get_chatgpt
 from helpers.utils import read_structured_data
 from models.formatted_responses import GeneratedSections
-from models.states import InputState, OutputState, OverallState, SectionsState
+from models.states import InputState, OutputState, OverallState
 
 
 def brainstorming_agent(state: OverallState):
@@ -27,6 +27,5 @@ Return a list of sections.
     )
 
     parsed: GeneratedSections = output["parsed"]
-    return SectionsState(
-        sections_titles=parsed.sections_titles, sections_content=[], sections_images=[]
-    )
+    state.sections_titles = parsed.sections_titles
+    return state
