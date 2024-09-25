@@ -5,7 +5,7 @@ from models.states import OverallState
 
 
 def brainstorming_agent(state: OverallState):
-    print("Brainstorming agent")
+    print("Brainstorming...")
     df = read_structured_data(state.input_data_file_path)
 
     prompt = f"""
@@ -18,7 +18,7 @@ Sample data from {state.input_data_file_path}:
 Available columns in the data:
 {df.columns.to_list()}
 
-Return a list of sections.
+Return a numbered list of sections.
 """
 
     chatgpt = get_chatgpt()
@@ -28,4 +28,5 @@ Return a list of sections.
 
     parsed: GeneratedSections = output["parsed"]
     state.sections_titles = parsed.sections_titles
+    print("Sections brainstormed:", state.sections_titles)
     return state
