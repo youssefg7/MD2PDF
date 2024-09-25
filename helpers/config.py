@@ -22,6 +22,7 @@ class Settings(BaseSettings):
         "margin-left": "0.75in",
         "encoding": "UTF-8",
         "no-outline": None,
+        "enable-local-file-access": None,
     }
 
     model_config = ConfigDict(

@@ -8,14 +8,12 @@ import pdfkit
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from helpers import get_settings
-from helpers.utils import auto_direction_html, read_css, read_md, write_html
+from helpers.utils import auto_direction_html, read_css, read_md, write_html, process_html
 
 app_settings = get_settings()
 
 
-def process_html(html: str) -> str:
-    html = auto_direction_html(html)
-    return html
+
 
 
 if __name__ == "__main__":

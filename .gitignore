@@ -6,3 +6,4 @@ output/
 .env
 .DS_Store
 __pycache__/
+debug/

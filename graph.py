@@ -1,5 +1,6 @@
 from langgraph.graph import END, START, StateGraph
-
+import time
+import os
 from agents import (
     brainstorming_agent,
     collect_sections_agent,
@@ -63,13 +64,30 @@ with open("graph.png", "wb") as f:
 #     )
 # )
 
+
+graph_time = str(time.strftime("%Y-%m-%d-%H-%M-%S"))
+debug_folder = os.path.join("output","debug", graph_time)
+os.makedirs(debug_folder, exist_ok=True)
+
+output_folder = os.path.join("output", graph_time)
+os.makedirs(output_folder, exist_ok=True)
+output_pdf_path = os.path.join(output_folder, "output.pdf")
+
+input_data_file_path = "input-samples/Sale Data.xlsx"
+user_input = "A sales report"
+
+start = time.time()
 for s in graph.stream(
     OverallState(
-        input_data_file_path="input-samples/Sale Data.xlsx",
-        user_input="A sales report",
-        output_pdf_path="output.pdf",
+        input_data_file_path=input_data_file_path,
+        user_input=user_input,
+        output_pdf_path=output_pdf_path,
+        debug_folder=debug_folder,
     ),
     stream_mode="debug",
 ):
     # print(s)
     pass
+
+end = time.time()
+print(f"Time taken: {end-start} seconds")

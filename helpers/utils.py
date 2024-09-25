@@ -1,7 +1,7 @@
 import re
-
+import base64
 import pandas as pd
-
+import os
 
 def read_md(file_path: str) -> str:
     if not file_path.endswith(".md"):
@@ -36,6 +36,18 @@ def auto_direction_html(html: str) -> str:
 
     return re.sub(r'(<\w+)([^>]*)(?<!dir="auto")(>)', r'\1\2 dir="auto"\3', html)
 
+def absolute_path_html_resources(html: str) -> str:
+    """
+    Replace relative paths in html resources with absolute paths
+    
+    Args:
+        html (str): The html content to replace relative paths in
+        
+    Returns:
+        str: The html content with relative paths replaced with absolute paths
+    """
+    
+    return re.sub(r'(src|href)="(?!http)([^"]+)"', rf'\1="{os.path.abspath(".")}/\2"', html)
 
 def read_structured_data(file_path: str) -> pd.DataFrame:
     if not file_path.endswith(".xlsx" or ".csv"):
@@ -45,3 +57,29 @@ def read_structured_data(file_path: str) -> pd.DataFrame:
         return pd.read_excel(file_path)
 
     return pd.read_csv(file_path)
+
+
+def load_image(image_path: str) -> str:
+    """Load image from file and encode it as base64."""
+  
+    def encode_image(image_path):
+        with open(image_path, "rb") as image_file:
+            return base64.b64encode(image_file.read()).decode('utf-8')
+    image_base64 = encode_image(image_path)
+    return image_base64
+
+def process_html(html: str) -> str:
+    html = auto_direction_html(html)
+    html = absolute_path_html_resources(html)
+    return html
+
+
+if __name__ == "__main__":
+    # print(read_md("input-samples/sample.md"))
+    # print(read_css("assets/styles.css"))
+    # write_html("test", "output.html")
+    # print(auto_direction_html("<html>"))
+    print(absolute_path_html_resources('<html><img src="image.png" /></html>'))
+    # print(read_structured_data("input-samples/Sale Data.xlsx"))
+    # print(load_image("input-samples/sample.png"))
+    # print(process_html("<html>"))
