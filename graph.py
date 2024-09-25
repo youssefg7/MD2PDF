@@ -1,6 +1,8 @@
-from langgraph.graph import END, START, StateGraph
-import time
 import os
+import time
+
+from langgraph.graph import END, START, StateGraph
+
 from agents import (
     brainstorming_agent,
     collect_sections_agent,
@@ -66,7 +68,7 @@ with open("graph.png", "wb") as f:
 
 
 graph_time = str(time.strftime("%Y-%m-%d-%H-%M-%S"))
-debug_folder = os.path.join("output","debug", graph_time)
+debug_folder = os.path.join("output", "debug", graph_time)
 os.makedirs(debug_folder, exist_ok=True)
 
 output_folder = os.path.join("output", graph_time)

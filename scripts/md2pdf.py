@@ -5,15 +5,18 @@ import sys
 import markdown2
 import pdfkit
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from helpers import get_settings
-from helpers.utils import auto_direction_html, read_css, read_md, write_html, process_html
+from helpers.utils import (
+    auto_direction_html,
+    process_html,
+    read_css,
+    read_md,
+    write_html,
+)
 
 app_settings = get_settings()
-
-
-
 
 
 if __name__ == "__main__":
@@ -38,9 +41,7 @@ if __name__ == "__main__":
 <body>{html_content}</body>
 </html>
 """
-    formatted_template = html_template.format(
-        html_content=html, css_styles=css_styles
-    )
+    formatted_template = html_template.format(html_content=html, css_styles=css_styles)
 
     if app_settings.OUTPUT_DEBUG:
         debug_dir = os.path.join(app_settings.OUTPUT_DIR, "debug")

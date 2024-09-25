@@ -72,7 +72,6 @@ Update the python code below to generate the plot:
 Output 100% syntatically and logically correct Python code ONLY.
 """
 
-
     CHART_SECTION_PROMPT = """
 You are an expert data reports writer, proficient in writing sections with charts for a report.
 Your task is to generate a '{section_title}' section for a '{user_input}' report.

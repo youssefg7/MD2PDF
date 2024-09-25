@@ -15,6 +15,7 @@ class OverallState(SimpleNamespace):
     output_pdf_path: str = None
     debug_folder: str = None
 
+
 class InputState(BaseModel):
     input_data_file_path: str
     user_input: str
@@ -36,6 +37,7 @@ class SectionState(SimpleNamespace):
     sections_chart_types: Annotated[list[str], operator.add]
     sections_images: Annotated[list[str], operator.add]
     debug_folder: str = None
+
 
 class SectionStateOutput(BaseModel):
     sections_content: Annotated[list[str], operator.add]
