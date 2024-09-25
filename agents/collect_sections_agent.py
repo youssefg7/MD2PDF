@@ -5,7 +5,7 @@ import pdfkit
 
 from helpers import get_settings
 from helpers.utils import process_html, read_css
-from models.states import OutputState, OverallState
+from models.states import OverallState
 
 app_settings = get_settings()
 
