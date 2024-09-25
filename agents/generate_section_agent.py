@@ -11,17 +11,18 @@ def continue_to_seciton_generation(state: OverallState):
     return [
         Send(
             "section_subgraph",
-            SectionState(section_title=section_title,
-                            input_data_file_path=state.input_data_file_path,
-                            user_input=state.user_input,
-            )                   
+            SectionState(
+                section_title=section_title,
+                input_data_file_path=state.input_data_file_path,
+                user_input=state.user_input,
+            ),
         )
         for section_title in state.sections_titles
     ]
 
 
 def continue_with_decision(state: SectionState):
-    
+
     if state.section_chart_type == "no chart needed":
         return Send("generate_text_only_section_agent", state)
     else:
@@ -50,9 +51,7 @@ If no graph is needed for this section, return 'no chart needed'.
         input=prompt
     )
     parsed: IfChartDecision = output["parsed"]
-    return {
-        "section_chart_type": parsed.chart_type
-    }
+    return {"section_chart_type": parsed.chart_type}
 
 
 def generate_text_only_section_agent(state: SectionState):
@@ -60,7 +59,7 @@ def generate_text_only_section_agent(state: SectionState):
     return {
         "section_content": state.section_content,
         "sections_titles": [state.section_title],
-        "sections_content": [state.section_title]
+        "sections_content": [state.section_title],
     }
 
 
@@ -70,5 +69,5 @@ def generate_chart_section_agent(state: SectionState):
         "section_image": state.section_title,
         "section_content": state.section_title,
         "sections_titles": [state.section_title],
-        "sections_content": [state.section_title]
+        "sections_content": [state.section_title],
     }

@@ -1,6 +1,7 @@
 import operator
-from typing import Annotated, Optional, TypedDict
 from types import SimpleNamespace
+from typing import Annotated, Optional, TypedDict
+
 from pydantic import BaseModel
 
 
@@ -34,6 +35,7 @@ class SectionState(SimpleNamespace):
     sections_content: Annotated[list[str], operator.add]
     sections_chart_types: Annotated[list[str], operator.add]
     sections_images: Annotated[list[str], operator.add]
+
 
 class SectionStateOutput(BaseModel):
     sections_content: Annotated[list[str], operator.add]

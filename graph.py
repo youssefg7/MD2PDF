@@ -11,10 +11,11 @@ from agents import (
 )
 from models.states import OverallState, SectionState, SectionStateOutput
 
-
 section_builder = StateGraph(state_schema=SectionState, output=SectionStateOutput)
 section_builder.add_node("decide_section_agent", decide_section_agent)
-section_builder.add_node("generate_text_only_section_agent", generate_text_only_section_agent)
+section_builder.add_node(
+    "generate_text_only_section_agent", generate_text_only_section_agent
+)
 section_builder.add_node("generate_chart_section_agent", generate_chart_section_agent)
 section_builder.add_edge(START, "decide_section_agent")
 section_builder.add_conditional_edges(
@@ -29,7 +30,6 @@ section_graph = section_builder.compile()
 section_graph_image = section_graph.get_graph().draw_mermaid_png()
 with open("section_graph.png", "wb") as f:
     f.write(section_graph_image)
-    
 
 
 builder = StateGraph(state_schema=OverallState)
@@ -69,7 +69,7 @@ for s in graph.stream(
         user_input="A sales report",
         output_pdf_path="output.pdf",
     ),
-    stream_mode="debug"
+    stream_mode="debug",
 ):
     # print(s)
     pass
