@@ -57,7 +57,9 @@ def absolute_path_html_resources(html: str) -> str:
 
 def read_structured_data(file_path: str) -> pd.DataFrame:
     if not file_path.split(".")[-1] in ["xlsx", "csv"]:
-        raise ValueError(f"File {file_path} is not a structured data file (xlsx or csv)")
+        raise ValueError(
+            f"File {file_path} is not a structured data file (xlsx or csv)"
+        )
 
     if file_path.endswith(".xlsx"):
         return pd.read_excel(file_path)

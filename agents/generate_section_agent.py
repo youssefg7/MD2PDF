@@ -80,7 +80,9 @@ def generate_chart_section_agent(state: SectionState):
     plot_image_path = os.path.join(
         state.debug_folder, f"{state.section_title} chart.png"
     )
-    used_data_path = os.path.join(state.debug_folder, f"{state.section_title} chart data.csv")
+    used_data_path = os.path.join(
+        state.debug_folder, f"{state.section_title} chart data.csv"
+    )
 
     df = read_structured_data(state.input_data_file_path)
     plotly_code_prompt = PromptsEnums.PLOTLY_CODE_PROMPT.value.format(
@@ -108,7 +110,7 @@ def generate_chart_section_agent(state: SectionState):
         raise Exception(
             "Plot image not saved in the expected location: " + plot_image_path
         )
-    
+
     if not os.path.exists(used_data_path):
         raise Exception(
             "Used data not saved in the expected location: " + used_data_path

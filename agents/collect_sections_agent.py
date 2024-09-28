@@ -14,7 +14,7 @@ def collect_sections_agent(state: OverallState):
     markdown = state.exec_summary + "\n\n"
     body = "\n\n".join(state.sections_content)
     markdown += body
-    
+
     if app_settings.OUTPUT_DEBUG:
         with open(os.path.join(state.debug_folder, "all sections.md"), "w") as file:
             file.write(markdown)
@@ -34,7 +34,6 @@ def collect_sections_agent(state: OverallState):
         output_html_path = os.path.join(state.debug_folder, "all_sections.html")
         with open(output_html_path, "w") as file:
             file.write(formatted_template)
-
 
     pdfkit.from_string(
         formatted_template, state.output_pdf_path, options=app_settings.OPTIONS
