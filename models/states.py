@@ -8,6 +8,7 @@ from pydantic import BaseModel
 class OverallState(SimpleNamespace):
     input_data_file_path: str
     user_input: str
+    exec_summary: str = None
     sections_titles: Annotated[list[str], operator.add]
     sections_content: Annotated[list[str], operator.add]
     sections_chart_types: Annotated[list[str], operator.add]

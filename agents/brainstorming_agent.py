@@ -22,5 +22,12 @@ def brainstorming_agent(state: OverallState):
     )
 
     parsed: GeneratedSections = output["parsed"]
-    state.sections_titles = parsed.sections_titles
-    return state
+    section_titles = parsed.sections_titles
+    
+    if section_titles[0].startswith("1.") and section_titles[1].startswith("2."):
+        print("Removed the first section title", section_titles[0])
+        section_titles = section_titles[1:]
+    
+    return {
+        "sections_titles": section_titles,        
+    }

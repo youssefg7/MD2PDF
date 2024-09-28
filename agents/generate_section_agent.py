@@ -68,7 +68,7 @@ def generate_text_only_section_agent(state: SectionState):
 
     chatgpt = get_chatgpt()
     reply = chatgpt.invoke(input=prompt)
-    section_content = reply.content
+    section_content = reply.content.strip("```")
 
     return {
         "section_content": section_content,
@@ -80,6 +80,7 @@ def generate_chart_section_agent(state: SectionState):
     plot_image_path = os.path.join(
         state.debug_folder, f"{state.section_title} chart.png"
     )
+    used_data_path = os.path.join(state.debug_folder, f"{state.section_title} chart data.csv")
 
     df = read_structured_data(state.input_data_file_path)
     plotly_code_prompt = PromptsEnums.PLOTLY_CODE_PROMPT.value.format(
@@ -88,6 +89,7 @@ def generate_chart_section_agent(state: SectionState):
         df_columns=df.columns.to_list(),
         input_file_path=state.input_data_file_path,
         output_plot_path=plot_image_path,
+        used_data_path=used_data_path,
     )
 
     chatgpt = get_chatgpt()
@@ -106,12 +108,19 @@ def generate_chart_section_agent(state: SectionState):
         raise Exception(
             "Plot image not saved in the expected location: " + plot_image_path
         )
+    
+    if not os.path.exists(used_data_path):
+        raise Exception(
+            "Used data not saved in the expected location: " + used_data_path
+        )
 
+    used_data = read_structured_data(used_data_path)
     section_content_prompt = PromptsEnums.CHART_SECTION_PROMPT.value.format(
         section_title=state.section_title,
         sections_titles=state.sections_titles,
         plot_image_path=plot_image_path,
         user_input=state.user_input,
+        used_data=used_data,
     )
     encoded_chart_image = load_image(plot_image_path)
 
@@ -127,12 +136,14 @@ def generate_chart_section_agent(state: SectionState):
 
     reply = chatgpt.invoke([prompt])
 
-    section_content = reply.content
+    section_content = reply.content.strip("```")
 
     image_path = f"images/{state.section_title}.png"
     return {
         "section_image": image_path,
         "section_content": section_content,
+        "section_used_data_path": used_data_path,
         "sections_content": [section_content],
         "sections_images": [image_path],
+        "sections_used_data_paths": [used_data_path],
     }
