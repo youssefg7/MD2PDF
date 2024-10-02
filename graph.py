@@ -7,12 +7,12 @@ from agents import (
     brainstorming_agent,
     collect_sections_agent,
     continue_to_seciton_generation,
+    continue_with_chart_generation,
     continue_with_decision,
     decide_section_agent,
     generate_chart_section_agent,
     generate_text_only_section_agent,
     summary_agent,
-    continue_with_chart_generation,
 )
 from models.states import OverallState, SectionState, SectionStateOutput
 

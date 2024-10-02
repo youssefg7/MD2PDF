@@ -59,7 +59,6 @@ def decide_section_agent(state: SectionState):
     }
 
 
-
 def generate_text_only_section_agent(state: SectionState):
     prompt = PromptsEnums.TEXT_ONLY_SECTION_PROMPT.value.format(
         user_input=state.user_input,
@@ -78,12 +77,16 @@ def generate_text_only_section_agent(state: SectionState):
 
 
 def generate_chart_section_agent(state: SectionState):
-    plot_image_path = os.path.join(
-        state.debug_folder, f"{state.section_title} chart.png"
-    ).replace(". ", "-").replace(" ", "-")
-    used_data_path = os.path.join(
-        state.debug_folder, f"{state.section_title} chart data.csv"
-    ).replace(". ", "-").replace(" ", "-")
+    plot_image_path = (
+        os.path.join(state.debug_folder, f"{state.section_title} chart.png")
+        .replace(". ", "-")
+        .replace(" ", "-")
+    )
+    used_data_path = (
+        os.path.join(state.debug_folder, f"{state.section_title} chart data.csv")
+        .replace(". ", "-")
+        .replace(" ", "-")
+    )
 
     df = read_structured_data(state.input_data_file_path)
     plotly_code_prompt = PromptsEnums.PLOTLY_CODE_PROMPT.value.format(
@@ -101,7 +104,11 @@ def generate_chart_section_agent(state: SectionState):
 
     pythonREPL = PythonREPL()
     code = pythonREPL.sanitize_input(code)
-    plot_code_path = os.path.join(state.debug_folder, f"{state.section_title} chart.py").replace(". ", "-").replace(" ", "-")
+    plot_code_path = (
+        os.path.join(state.debug_folder, f"{state.section_title} chart.py")
+        .replace(". ", "-")
+        .replace(" ", "-")
+    )
     if app_settings.OUTPUT_DEBUG:
         with open(plot_code_path, "w") as f:
             f.write(code)
@@ -157,7 +164,7 @@ def generate_chart_section_agent(state: SectionState):
 
 
 def continue_with_chart_generation(state: SectionState):
-    if state.error == 'none':
+    if state.error == "none":
         return "end"
     else:
         return "reflect"
