@@ -6,5 +6,6 @@ from .generate_section_agent import (
     decide_section_agent,
     generate_chart_section_agent,
     generate_text_only_section_agent,
+    continue_with_chart_generation
 )
 from .summarization_agent import summary_agent

@@ -27,16 +27,17 @@ def write_html(html: str, file_path: str) -> None:
 
 def auto_direction_html(html: str) -> str:
     """
-    Add dir="auto" to all html tags that don't already have it
-
+    Add dir="auto" to all html tags that don't already have it to support right-to-left languages, such as Arabic.
+    It doesn't add dir="auto" to closing tags, self-closing tags or tags that already have dir="auto".
+    
     Args:
-        html (str): The html content to add dir="auto" to
+        html (str): The html content to add dir="auto" to.
 
     Returns:
-        str: The html content with dir="auto" added to all tags that didn't already have it
+        str: The html content with dir="auto" added to all tags that didn't already have it.
     """
 
-    return re.sub(r'(<\w+)([^>]*)(?<!dir="auto")(>)', r'\1\2 dir="auto"\3', html)
+    return re.sub(r'(<\w+)([^>]*)(?<!dir="auto")(?<!/)(>)', r'\1\2 dir="auto"\3', html)
 
 
 def absolute_path_html_resources(html: str) -> str:

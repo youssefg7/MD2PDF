@@ -16,7 +16,7 @@ Available columns in the data:
 
 Instructions:
 - Please return a numbered list of sections starting from 2.
-- All the titles should be in the format '2. Section Title'.
+- All the titles should be in the format '2. Section Title', '3. Section Title', etc.
 - Only include main body sections, no conclusion , appendix, references, suggestions, acknowledgments or any other similar sections.
 - The list should be at least 3 sections long and no longer than 7 sections.
 """
@@ -72,8 +72,8 @@ Update the python code below to generate the plot:
 # Create the Output Directory, Ensure that the plot image output directory '{output_plot_path}' exists, use the exact given path.
 # Read the input data from '{input_file_path}' into a pandas DataFrame.
 # Code to generate a clear and informative plot with plotly-express using the data. 
-# Don't forget to include a title, labels, and any other necessary configurations for the plot.
-# Make sure to use `fig.update_traces(textposition='none')` after creating the plot to remove numbers on the plot.
+# Include a title, axes labels, and any other necessary configurations for the plot.
+# Use one of `fig.update_traces(text=None)` to remove numbers on the plot. 
 # Save aggregate data used to generate the plot to '{used_data_path}', use the exact given path.
 # Save the plot image to '{output_plot_path}', use the exact given path.
 ```

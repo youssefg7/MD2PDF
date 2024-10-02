@@ -59,6 +59,7 @@ def decide_section_agent(state: SectionState):
     }
 
 
+
 def generate_text_only_section_agent(state: SectionState):
     prompt = PromptsEnums.TEXT_ONLY_SECTION_PROMPT.value.format(
         user_input=state.user_input,
@@ -79,10 +80,10 @@ def generate_text_only_section_agent(state: SectionState):
 def generate_chart_section_agent(state: SectionState):
     plot_image_path = os.path.join(
         state.debug_folder, f"{state.section_title} chart.png"
-    )
+    ).replace(". ", "-").replace(" ", "-")
     used_data_path = os.path.join(
         state.debug_folder, f"{state.section_title} chart data.csv"
-    )
+    ).replace(". ", "-").replace(" ", "-")
 
     df = read_structured_data(state.input_data_file_path)
     plotly_code_prompt = PromptsEnums.PLOTLY_CODE_PROMPT.value.format(
@@ -100,21 +101,24 @@ def generate_chart_section_agent(state: SectionState):
 
     pythonREPL = PythonREPL()
     code = pythonREPL.sanitize_input(code)
-    plot_code_path = os.path.join(state.debug_folder, f"{state.section_title} chart.py")
+    plot_code_path = os.path.join(state.debug_folder, f"{state.section_title} chart.py").replace(". ", "-").replace(" ", "-")
     if app_settings.OUTPUT_DEBUG:
         with open(plot_code_path, "w") as f:
             f.write(code)
 
     pythonREPL.run(code)
-    if not os.path.exists(plot_image_path):
-        raise Exception(
-            "Plot image not saved in the expected location: " + plot_image_path
-        )
+    try:
+        if not os.path.exists(plot_image_path):
+            raise Exception(
+                "Plot image not saved in the expected location: " + plot_image_path
+            )
 
-    if not os.path.exists(used_data_path):
-        raise Exception(
-            "Used data not saved in the expected location: " + used_data_path
-        )
+        if not os.path.exists(used_data_path):
+            raise Exception(
+                "Used data not saved in the expected location: " + used_data_path
+            )
+    except Exception as e:
+        return {"error": str(e)}
 
     used_data = read_structured_data(used_data_path)
     section_content_prompt = PromptsEnums.CHART_SECTION_PROMPT.value.format(
@@ -142,6 +146,7 @@ def generate_chart_section_agent(state: SectionState):
 
     image_path = f"images/{state.section_title}.png"
     return {
+        "error": "none",
         "section_image": image_path,
         "section_content": section_content,
         "section_used_data_path": used_data_path,
@@ -149,3 +154,10 @@ def generate_chart_section_agent(state: SectionState):
         "sections_images": [image_path],
         "sections_used_data_paths": [used_data_path],
     }
+
+
+def continue_with_chart_generation(state: SectionState):
+    if state.error == 'none':
+        return "end"
+    else:
+        return "reflect"

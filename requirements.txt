@@ -14,4 +14,5 @@ kaleido
 langgraph==0.2.23
 langchain==0.3.0
 langchain-openai==0.2.0
-
+beautifulsoup4==4.12.3
+langfuse==c2.51.2

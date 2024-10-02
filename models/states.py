@@ -38,6 +38,7 @@ class SectionState(SimpleNamespace):
     sections_chart_types: Annotated[list[str], operator.add]
     sections_images: Annotated[list[str], operator.add]
     debug_folder: str = None
+    error: str
 
 
 class SectionStateOutput(BaseModel):

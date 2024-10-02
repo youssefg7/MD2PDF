@@ -12,6 +12,7 @@ from agents import (
     generate_chart_section_agent,
     generate_text_only_section_agent,
     summary_agent,
+    continue_with_chart_generation,
 )
 from models.states import OverallState, SectionState, SectionStateOutput
 
@@ -28,12 +29,20 @@ section_builder.add_conditional_edges(
     ["generate_text_only_section_agent", "generate_chart_section_agent"],
 )
 section_builder.add_edge("generate_chart_section_agent", END)
+# section_builder.add_conditional_edges(
+#     "generate_chart_section_agent",
+#     continue_with_chart_generation,
+#     {
+#         "end": END,
+#         "reflect": "generate_chart_section_agent"
+#     }
+# )
 section_builder.add_edge("generate_text_only_section_agent", END)
 
 section_graph = section_builder.compile()
-# section_graph_image = section_graph.get_graph().draw_mermaid_png()
-# with open("section_graph.png", "wb") as f:
-#     f.write(section_graph_image)
+section_graph_image = section_graph.get_graph().draw_mermaid_png()
+with open("section_graph.png", "wb") as f:
+    f.write(section_graph_image)
 
 
 builder = StateGraph(state_schema=OverallState)
@@ -70,7 +79,7 @@ os.makedirs(output_folder, exist_ok=True)
 output_pdf_path = os.path.join(output_folder, "output.pdf")
 
 input_data_file_path = "input-samples/Sale Data.xlsx"
-user_input = "A sales report"
+user_input = "A monthly sales report"
 
 start = time.time()
 graph.invoke(
