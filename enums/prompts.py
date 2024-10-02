@@ -47,8 +47,8 @@ Instructions:
 - Reply directly with a markdown-formatted text-only section for the section titled '{section_title}'.
 - The paragraph should be at least 3 sentences long and no longer than 5 sentences.
 - Your response should be a paragraph of markdown-formatted text that is ready to be inserted into a markdown file for the report.
-- The markdown must start with a header of level 1 (#) with the section title.
-- Always start your response with triple quotes (```) and end it with triple quotes to ensure that the markdown is formatted correctly.
+- You must start your response with (```# {section_title}) and end it with triple quotes (```) to ensure that the markdown is formatted correctly.
+- You can use subheadings (##) to structure the section, but it is not necessary.
 """
 
     PLOTLY_CODE_PROMPT = """
@@ -99,8 +99,8 @@ The data used to generate the chart is:
 Instructions:
 - Please reply directly with a markdown-formatted text of the section that is ready to be inserted into a markdown file for the report.
 - Please place the chart image at a suitable location in the section markdown text given that its path is: '{plot_image_path}'
-- The markdown must start with a header of level 1 (#) with the section title.
-- Always start your response with triple quotes (```) and end it with triple quotes to ensure that the markdown is formatted correctly.
+- You must start your response with (```# {section_title}) and end it with triple quotes (```) to ensure that the markdown is formatted correctly.
+- You can use subheadings (##) to structure the section, but it is not necessary.
 """
 
     EXECUTIVE_SUMMARY_PROMPT = """
@@ -115,5 +115,5 @@ Instructions:
 - The markdown must start with '# 1. Executive Summary'.
 - The section should highlight the key points of the report.
 - Always start your response with triple quotes (```) and end it with triple quotes to ensure that the markdown is formatted correctly.
-
+- Your answer should be in Arabic language.
 """

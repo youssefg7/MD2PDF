@@ -16,3 +16,4 @@ langchain==0.3.0
 langchain-openai==0.2.0
 beautifulsoup4==4.12.3
 langfuse==2.51.2
+xlrd==2.0.1
