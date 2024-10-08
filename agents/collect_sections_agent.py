@@ -1,30 +1,32 @@
-import os
 import asyncio
+import os
+
 import markdown2
 import pdfkit
 from bs4 import BeautifulSoup
-from weasyprint import HTML, CSS
+from playwright.sync_api import sync_playwright
+from pwhtmltopdf import HtmlToPdf
+from pyppeteer import launch
+from weasyprint import CSS, HTML
+
 from helpers import get_settings
 from helpers.utils import process_html, read_css
 from models.states import OverallState
-from pyppeteer import launch
-from pwhtmltopdf import HtmlToPdf
-from playwright.sync_api import sync_playwright
-
 
 app_settings = get_settings()
+
 
 async def generate_pdf_from_html(html_content, pdf_path):
     browser = await launch()
     page = await browser.newPage()
-    
+
     await page.setContent(html_content)
-    await page.waitForSelector('img', {'visible': True})
-    
-    
-    await page.pdf(app_settings.OPTIONS.update({'path': pdf_path}))
-    
+    await page.waitForSelector("img", {"visible": True})
+
+    await page.pdf(app_settings.OPTIONS.update({"path": pdf_path}))
+
     await browser.close()
+
 
 async def pdf_from_string(html_content, pdf_path):
     async with HtmlToPdf() as htp:
@@ -75,7 +77,6 @@ def collect_sections_agent(state: OverallState):
         page = browser.new_page()
         page.set_content(formatted_template)
         page.pdf(path=state.output_pdf_path)
-    
 
 
 def extract_headings(

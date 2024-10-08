@@ -149,7 +149,9 @@ def generate_chart_section_agent(state: SectionState):
 
     reply = chatgpt.invoke([prompt])
 
-    section_content = reply.content.strip("```").strip('markdown').strip('```').strip('\n')
+    section_content = (
+        reply.content.strip("```").strip("markdown").strip("```").strip("\n")
+    )
     image_path = f"images/{state.section_title}.png"
     return {
         "error": "none",

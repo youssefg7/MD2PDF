@@ -8,12 +8,7 @@ import pdfkit
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from helpers import get_settings
-from helpers.utils import (
-    process_html,
-    read_css,
-    read_md,
-    write_html,
-)
+from helpers.utils import process_html, read_css, read_md, write_html
 
 app_settings = get_settings()
 
