@@ -76,6 +76,7 @@ Update the python code below to generate the plot:
 # Use one of `fig.update_traces(text=None)` to remove numbers on the plot. 
 # Save aggregate data used to generate the plot to '{used_data_path}', use the exact given path.
 # Save the plot image to '{output_plot_path}', use the exact given path.
+# DO NOT OPEN THE IMAGE FILE OR DISPLAY THE IMAGE IN THE OUTPUT.
 ```
 
 Instructions:
@@ -113,7 +114,7 @@ The report includes the following sections:
 Instructions:
 - Please Reply directly with a markdown-formatted text of the executive summary that is ready to be inserted into a markdown file for the report.
 - The markdown must start with '# 1. Executive Summary'.
-- The section should highlight the key points of the report.
+- The section should highlight the key points of the report in a formatted concise manner.
 - Always start your response with triple quotes (```) and end it with triple quotes to ensure that the markdown is formatted correctly.
 - Your answer should be in Arabic language.
 """

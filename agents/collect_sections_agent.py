@@ -5,33 +5,12 @@ import markdown2
 import pdfkit
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
-from pwhtmltopdf import HtmlToPdf
-from pyppeteer import launch
-from weasyprint import CSS, HTML
-
 from helpers import get_settings
 from helpers.utils import process_html, read_css
 from models.states import OverallState
+import time
 
 app_settings = get_settings()
-
-
-async def generate_pdf_from_html(html_content, pdf_path):
-    browser = await launch()
-    page = await browser.newPage()
-
-    await page.setContent(html_content)
-    await page.waitForSelector("img", {"visible": True})
-
-    await page.pdf(app_settings.OPTIONS.update({"path": pdf_path}))
-
-    await browser.close()
-
-
-async def pdf_from_string(html_content, pdf_path):
-    async with HtmlToPdf() as htp:
-        await htp.from_string(html_content, pdf_path)
-
 
 def collect_sections_agent(state: OverallState):
     markdown = state.exec_summary + "\n\n"
@@ -55,7 +34,7 @@ def collect_sections_agent(state: OverallState):
     html_template = """
 <html>
 <head>{css_styles}</head>
-<body>{html_content}</body>
+<body class="document_container">{html_content}</body>
 </html>
 """
     formatted_template = html_template.format(html_content=html, css_styles=css_styles)
@@ -65,18 +44,14 @@ def collect_sections_agent(state: OverallState):
         with open(output_html_path, "w") as file:
             file.write(formatted_template)
 
-    # html = HTML(string=formatted_template)
-    # pdf = html.write_pdf(target=state.output_pdf_path)
-    # pdfkit.from_string(
-    #     formatted_template, state.output_pdf_path, options=app_settings.OPTIONS
-    # )
-    # asyncio.get_event_loop().run_until_complete(generate_pdf_from_html(formatted_template, state.output_pdf_path))
-    # await pdf_from_string(formatted_template, state.output_pdf_path)
+
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page()
-        page.set_content(formatted_template)
-        page.pdf(path=state.output_pdf_path)
+        print(os.path.abspath(output_html_path))
+        page.goto(f"file://{os.path.abspath(output_html_path)}")
+        page.pdf(path=state.output_pdf_path,format="A4", margin={"top": "0.75in", "right": "0.75in", "bottom": "0.75in", "left": "0.75in"})
+        browser.close()
 
 
 def extract_headings(
