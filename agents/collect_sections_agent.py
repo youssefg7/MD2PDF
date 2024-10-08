@@ -1,16 +1,18 @@
 import asyncio
 import os
+import time
 
 import markdown2
 import pdfkit
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
+
 from helpers import get_settings
 from helpers.utils import process_html, read_css
 from models.states import OverallState
-import time
 
 app_settings = get_settings()
+
 
 def collect_sections_agent(state: OverallState):
     markdown = state.exec_summary + "\n\n"
@@ -44,13 +46,21 @@ def collect_sections_agent(state: OverallState):
         with open(output_html_path, "w") as file:
             file.write(formatted_template)
 
-
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page()
         print(os.path.abspath(output_html_path))
         page.goto(f"file://{os.path.abspath(output_html_path)}")
-        page.pdf(path=state.output_pdf_path,format="A4", margin={"top": "0.75in", "right": "0.75in", "bottom": "0.75in", "left": "0.75in"})
+        page.pdf(
+            path=state.output_pdf_path,
+            format="A4",
+            margin={
+                "top": "0.75in",
+                "right": "0.75in",
+                "bottom": "0.75in",
+                "left": "0.75in",
+            },
+        )
         browser.close()
 
 
