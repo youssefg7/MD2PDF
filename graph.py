@@ -2,6 +2,7 @@ import os
 import time
 
 from langgraph.graph import END, START, StateGraph
+import asyncio
 
 from agents import (
     brainstorming_agent,
@@ -40,9 +41,9 @@ section_builder.add_edge("generate_chart_section_agent", END)
 section_builder.add_edge("generate_text_only_section_agent", END)
 
 section_graph = section_builder.compile()
-section_graph_image = section_graph.get_graph().draw_mermaid_png()
-with open("section_graph.png", "wb") as f:
-    f.write(section_graph_image)
+# section_graph_image = section_graph.get_graph().draw_mermaid_png()
+# with open("section_graph.png", "wb") as f:
+#     f.write(section_graph_image)
 
 
 builder = StateGraph(state_schema=OverallState)
@@ -82,6 +83,20 @@ input_data_file_path = "input-samples/Sale Data.xlsx"
 user_input = "A monthly sales report"
 
 start = time.time()
+
+
+loop = asyncio.get_event_loop()
+# Blocking call which returns when the display_date() coroutine is done
+# loop.run_until_complete(graph.ainvoke(
+#     OverallState(
+#         input_data_file_path=input_data_file_path,
+#         user_input=user_input,
+#         output_pdf_path=output_pdf_path,
+#         debug_folder=debug_folder,
+#     )
+# ))
+# loop.close()
+
 graph.invoke(
     OverallState(
         input_data_file_path=input_data_file_path,

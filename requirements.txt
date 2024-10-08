@@ -17,3 +17,6 @@ langchain-openai==0.2.0
 beautifulsoup4==4.12.3
 langfuse==2.51.2
 xlrd==2.0.1
+weasyprint==62.3
+pyppeteer==2.0.0
+pytest-playwright==0.5.2

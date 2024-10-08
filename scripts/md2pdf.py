@@ -9,7 +9,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from helpers import get_settings
 from helpers.utils import (
-    auto_direction_html,
     process_html,
     read_css,
     read_md,

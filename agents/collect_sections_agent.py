@@ -1,14 +1,34 @@
 import os
-
+import asyncio
 import markdown2
 import pdfkit
 from bs4 import BeautifulSoup
-
+from weasyprint import HTML, CSS
 from helpers import get_settings
 from helpers.utils import process_html, read_css
 from models.states import OverallState
+from pyppeteer import launch
+from pwhtmltopdf import HtmlToPdf
+from playwright.sync_api import sync_playwright
+
 
 app_settings = get_settings()
+
+async def generate_pdf_from_html(html_content, pdf_path):
+    browser = await launch()
+    page = await browser.newPage()
+    
+    await page.setContent(html_content)
+    await page.waitForSelector('img', {'visible': True})
+    
+    
+    await page.pdf(app_settings.OPTIONS.update({'path': pdf_path}))
+    
+    await browser.close()
+
+async def pdf_from_string(html_content, pdf_path):
+    async with HtmlToPdf() as htp:
+        await htp.from_string(html_content, pdf_path)
 
 
 def collect_sections_agent(state: OverallState):
@@ -43,9 +63,19 @@ def collect_sections_agent(state: OverallState):
         with open(output_html_path, "w") as file:
             file.write(formatted_template)
 
-    pdfkit.from_string(
-        formatted_template, state.output_pdf_path, options=app_settings.OPTIONS
-    )
+    # html = HTML(string=formatted_template)
+    # pdf = html.write_pdf(target=state.output_pdf_path)
+    # pdfkit.from_string(
+    #     formatted_template, state.output_pdf_path, options=app_settings.OPTIONS
+    # )
+    # asyncio.get_event_loop().run_until_complete(generate_pdf_from_html(formatted_template, state.output_pdf_path))
+    # await pdf_from_string(formatted_template, state.output_pdf_path)
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        page = browser.new_page()
+        page.set_content(formatted_template)
+        page.pdf(path=state.output_pdf_path)
+    
 
 
 def extract_headings(

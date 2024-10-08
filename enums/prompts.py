@@ -17,7 +17,7 @@ Available columns in the data:
 Instructions:
 - Please return a numbered list of sections starting from 2.
 - All the titles should be in the format '2. Section Title', '3. Section Title', etc.
-- Only include main body sections, no conclusion , appendix, references, suggestions, acknowledgments or any other similar sections.
+- Please ONLY include main body sections, no conclusion , appendix, references, suggestions, acknowledgments or any other similar sections.
 - The list should be at least 3 sections long and no longer than 7 sections.
 """
 
