@@ -1,7 +1,6 @@
 import base64
 import os
 import re
-
 import pandas as pd
 
 
@@ -25,19 +24,25 @@ def write_html(html: str, file_path: str) -> None:
         file.write(html)
 
 
-def auto_direction_html(html: str) -> str:
+def auto_direction_html(html: str, direction="auto") -> str:
     """
-    Add dir="auto" to all html tags that don't already have it to support right-to-left languages, such as Arabic.
-    It doesn't add dir="auto" to closing tags, self-closing tags or tags that already have dir="auto".
+    Add dir to all html tags that don't already have it.
+    It doesn't add dir to closing tags, self-closing tags or tags that already have dir.
 
     Args:
-        html (str): The html content to add dir="auto" to.
+        html (str): The html content to add dir="" to.
 
     Returns:
-        str: The html content with dir="auto" added to all tags that didn't already have it.
+        str: The html content with dir="" added to all tags that didn't already have it.
+        
+    Raises:
+        ValueError: If the direction is not one of "auto", "rtl", or "ltr".
     """
-
-    return re.sub(r'(<\w+)([^>]*)(?<!dir="auto")(?<!/)(>)', r'\1\2 dir="auto"\3', html)
+    
+    if direction not in ("auto", "rtl", "ltr"):
+        raise ValueError('Direction must be "auto", "rtl", or "ltr".')
+    
+    return re.sub(r'(<\w+)([^>]*)(?<!dir="auto")(?<!/)(>)', rf'\1\2 dir="{direction}"\3', html)
 
 
 def absolute_path_html_resources(html: str) -> str:
@@ -79,8 +84,8 @@ def load_image(image_path: str) -> str:
     return image_base64
 
 
-def process_html(html: str) -> str:
-    html = auto_direction_html(html)
+def process_html(html: str, direction="auto") -> str:
+    # html = auto_direction_html(html, direction)
     html = absolute_path_html_resources(html)
     return html
 
@@ -94,3 +99,5 @@ if __name__ == "__main__":
     # print(read_structured_data("input-samples/Sale Data.xlsx"))
     # print(load_image("input-samples/sample.png"))
     # print(process_html("<html>"))
+
+

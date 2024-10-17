@@ -41,10 +41,9 @@ def collect_sections_agent(state: OverallState):
 """
     formatted_template = html_template.format(html_content=html, css_styles=css_styles)
 
-    if app_settings.OUTPUT_DEBUG:
-        output_html_path = os.path.join(state.debug_folder, "all_sections.html")
-        with open(output_html_path, "w") as file:
-            file.write(formatted_template)
+    output_html_path = os.path.join(state.debug_folder, "all_sections.html")
+    with open(output_html_path, "w") as file:
+        file.write(formatted_template)
 
     with sync_playwright() as p:
         browser = p.chromium.launch()
@@ -60,6 +59,8 @@ def collect_sections_agent(state: OverallState):
                 "bottom": "0.75in",
                 "left": "0.75in",
             },
+            print_background=True,
+            scale=1,
         )
         browser.close()
 

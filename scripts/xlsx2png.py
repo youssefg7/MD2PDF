@@ -96,6 +96,7 @@ if __name__ == "__main__":
 
         pythonREPL = PythonREPL()
         code = pythonREPL.sanitize_input(code)
+    
 
         if app_settings.OUTPUT_DEBUG:
             debug_dir = os.path.join(app_settings.OUTPUT_DIR, "debug")
@@ -110,6 +111,8 @@ if __name__ == "__main__":
                 file.write(code)
         try:
             pythonREPL.run(code)
+            print("globals", pythonREPL.globals)
+            print("locals", pythonREPL.locals)
             if not os.path.exists(output_plot_image_path):
                 raise Exception("Plot image not saved in the expected location.")
             break
