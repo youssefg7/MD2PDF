@@ -7,9 +7,10 @@ import pdfkit
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
+from playwright.sync_api import sync_playwright
+
 from helpers import get_settings
 from helpers.utils import process_html, read_css, read_md, write_html
-from playwright.sync_api import sync_playwright
 
 app_settings = get_settings()
 

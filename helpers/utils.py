@@ -1,6 +1,7 @@
 import base64
 import os
 import re
+
 import pandas as pd
 
 
@@ -34,15 +35,17 @@ def auto_direction_html(html: str, direction="auto") -> str:
 
     Returns:
         str: The html content with dir="" added to all tags that didn't already have it.
-        
+
     Raises:
         ValueError: If the direction is not one of "auto", "rtl", or "ltr".
     """
-    
+
     if direction not in ("auto", "rtl", "ltr"):
         raise ValueError('Direction must be "auto", "rtl", or "ltr".')
-    
-    return re.sub(r'(<\w+)([^>]*)(?<!dir="auto")(?<!/)(>)', rf'\1\2 dir="{direction}"\3', html)
+
+    return re.sub(
+        r'(<\w+)([^>]*)(?<!dir="auto")(?<!/)(>)', rf'\1\2 dir="{direction}"\3', html
+    )
 
 
 def absolute_path_html_resources(html: str) -> str:
@@ -99,5 +102,3 @@ if __name__ == "__main__":
     # print(read_structured_data("input-samples/Sale Data.xlsx"))
     # print(load_image("input-samples/sample.png"))
     # print(process_html("<html>"))
-
-
